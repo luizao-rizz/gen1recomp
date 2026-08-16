@@ -16,6 +16,12 @@ local NxDisplay = require("src.core.NxDisplay")
 local PlatformHooks = require("src.core.PlatformHooks")
 local HostDisplay = require("src.core.HostDisplay")
 
+-- CRITICAL: Load graphics wrapper BEFORE anything uses graphics.
+-- This intercepts ALL love.graphics.setCanvas/newCanvas/draw calls globally
+-- to protect against graphics context loss (Android suspend/resume, low VRAM).
+-- Without this, canvas operations throughout the codebase would crash randomly.
+require("src.render.GraphicsWrapper")
+
 -- Lua errors: persist a redacted trace in the save dir and surface a hint.
 do
   local defaultErrorHandler = love.errorhandler

@@ -97,8 +97,14 @@ local function drain()
   for _, th in ipairs(workers) do
     local err = th:getError()
     if err then
-      for _, j in pairs(jobs) do
-        if j.status == "pending" then
+      -- CRITICAL: Copy job ids BEFORE iterating; pairs() on a table being
+      -- modified by gc (jobs[id]=nil in release()) causes crash.
+      -- Collect all ids first, then iterate the snapshot.
+      local jobIds = {}
+      for id in pairs(jobs) do jobIds[#jobIds + 1] = id end
+      for _, id in ipairs(jobIds) do
+        local j = jobs[id]
+        if j and j.status == "pending" then
           j.status, j.err = "error", tostring(err)
         end
       end
