@@ -23,6 +23,8 @@ function ChoiceBox.new(game, onChoose, opts)
   -- and docking it to the window edge instead tears it off that screen by
   -- however far the letterbox sits from the edge.
   self.anchor = opts and opts.anchor or nil
+  self.holdFrames = 0
+  self.pending = nil
   local box = Theme.choiceBox
   self.tx = (opts and opts.tx) or box.tx
   self.ty = (opts and opts.ty) or box.ty
