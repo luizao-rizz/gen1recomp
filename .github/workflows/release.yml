@@ -23,7 +23,7 @@ jobs:
           scripts/pack_love.sh \
             --output dist/payload/game.love \
             --listing dist/payload/love-listing.txt \
-            --version "dev-build"
+            --version "0.1.0"
 
       - name: Upload shared payload
         uses: actions/upload-artifact@v4
@@ -58,7 +58,7 @@ jobs:
       - name: Build Android APK
         run: |
           set -euo pipefail
-          scripts/build_android.sh --version "dev-build"
+          scripts/build_android.sh --version "0.1.0"
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
