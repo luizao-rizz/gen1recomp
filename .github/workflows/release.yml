@@ -19,7 +19,7 @@ name: Release
 
 on:
   push:
-    branches: [main]
+    branches: [dev]
     # CI/workflow and docs-only changes don't ship anything to users, so they
     # don't earn a release. A push touching these *and* real source still
     # releases; only pushes confined entirely to these paths are skipped.
@@ -308,7 +308,7 @@ jobs:
           path: dist/native/win-x64
 
       - name: Import signing certificate into a temporary keychain
-        if: github.repository == 'bryanthaboi/gen1recomp'
+        #if: github.repository == 'bryanthaboi/gen1recomp'
         run: |
           set -euo pipefail
           KEYCHAIN_PATH="$RUNNER_TEMP/pokemon-signing.keychain-db"
