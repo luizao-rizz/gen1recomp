@@ -127,6 +127,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+
+      - name: allow permissions bc we're in ubuntu ofc
+      - run: chmod +x scripts/*.sh
+
       - name: Build shared payload
         run: |
           scripts/pack_love.sh \
